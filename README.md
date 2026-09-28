@@ -51,7 +51,9 @@ This re-renders `portfolio/img/*.svg` and rewrites every page listed above.
 ## Design system
 
 **Typefaces** — Domaine Display (display), Editorial New (text), Canopee
-(accents), served as web fonts.
+(accents), served as web fonts. Mango Grotesque Semi Bold is bundled locally
+(`portfolio/fonts/mango-grotesque-semibold.woff2`, declared in
+`portfolio/styles.css`) and sets the project headings in the home hero slider.
 
 **Palette** — ink `#1D1D1B` on paper `#E8E3DA`, with `#CDC6BE` as the
 secondary. The paper grain is generated at runtime in `app.js` and painted
