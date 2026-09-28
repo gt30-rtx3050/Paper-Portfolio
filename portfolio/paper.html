@@ -5,8 +5,13 @@
 
 <link rel="preload" href="fonts/mango-grotesque-semibold.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="styles.css"><style>
     .index .item-img > img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
-    .index .item-tw .project-name { display: flex; align-items: center; height: 100%; max-width: 100%; color: #1D1D1B; font-family: "Mango Grotesque", Canopee, sans-serif; font-size: min(1.28vw, 18px); font-weight: 600; letter-spacing: -0.02em; line-height: 1; text-transform: uppercase; white-space: nowrap; }
-    @media screen and (max-width: 767px) { .index .item-tw .project-name { font-size: clamp(11px, 3.4vw, 17px); } }
+    .index .item-tw { height: auto; min-height: 2.8vw; display: flex; align-items: center; }
+    .index .item-tw .project-name { display: flex; align-items: center; height: auto; max-width: 100%; color: #1D1D1B; font-family: "Mango Grotesque", Canopee, sans-serif; font-size: clamp(24px, 3.1vw, 52px); font-weight: 600; letter-spacing: -0.02em; line-height: 1; text-transform: uppercase; white-space: nowrap; }
+    .index .item-tw .new-w-2 { flex-shrink: 0; }
+    @media screen and (max-width: 767px) {
+        .index .item-tw { height: auto; min-height: 7vw; }
+        .index .item-tw .project-name { font-size: clamp(22px, 6.5vw, 38px); }
+    }
 </style>
 <!-- Featured slider imagery: Unsplash License photos.
      FISHTAIL ROOFING — https://unsplash.com/photos/workers-installing-roof-tiles-on-a-new-building-OnwxQNEbPco
