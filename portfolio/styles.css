@@ -467,3 +467,10 @@ border-radius: .5vw;
 }
 
 
+/* Fit the longer home hero title into the portrait column without clipping it. */
+.index .h-head.sub.growth-marketing{font-size:8vw;line-height:6.8vw}
+@media screen and (max-width:479px){.index .h-head.sub.growth-marketing{font-size:24vw;line-height:19vw}}
+
+/* Keep the faces in view when the portrait assets fill the hero's wide frames. */
+.index .h-inner.set1 > .h-img,
+.index .h-inner.set2 > .h-img{width:100%;height:100%;object-fit:cover;object-position:center 10%;background-image:none}
