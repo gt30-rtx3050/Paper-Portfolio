@@ -169,14 +169,27 @@ html{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;font-family:sans-se
         will-change: transform;
     }
 
-    body:not(.index, .work-case) #app {
+    /* Page reveal.
+       The reference build faded #app in by stamping an `.appear` class on
+       it once its Webflow preloader finished. The generated pages have no
+       preloader, so app.js stamps `.appear` on boot instead.
+
+       The hide is now gated on `html.js-boot`, a flag only app.js ever
+       sets. If the script is blocked, throws, or JS is off, the flag is
+       never added and the content simply renders — a broken script can no
+       longer leave every page stranded on an empty paper background.
+
+       The old selector also keyed off a `.work-case` body class that the
+       build puts on the .main div, not on <body>, so it could never match
+       the case studies either. `body:not(.index)` is the real condition. */
+    body:not(.index) #app {
         -webkit-transition: opacity 1s ease-out;
         -o-transition: opacity 1s ease-out;
         transition: opacity 1s ease-out;
     }
 
-    body:not(.index, .work-case) #app:not(.appear) {
-        opacity: 0 !important;
+    html.js-boot body:not(.index) #app:not(.appear) {
+        opacity: 0;
     }
 
     .gl-canvas.below {

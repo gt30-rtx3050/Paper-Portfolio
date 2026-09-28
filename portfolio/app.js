@@ -377,17 +377,28 @@
   /* ----------------------------------------------------------------
      Boot
      ---------------------------------------------------------------- */
+
+  /* Each feature is independent, so one throwing must not abort the
+     rest — and above all must not skip the reveal, which is what
+     styles.css is waiting on before it will show #app. */
   function boot() {
-    applyPaper();
-    initScroll();
-    initNav();
-    initMenu();
-    initSlider();
-    initMarquee();
-    initReveals();
-    initGrid();
-    initGallery();
-    initPaging();
+    // Claim the fade-in up front. styles.css only hides #app once this
+    // flag is on the root, so a page whose script never gets this far
+    // stays visible instead of going blank.
+    document.documentElement.classList.add('js-boot');
+
+    [applyPaper, initScroll, initNav, initMenu, initSlider,
+     initMarquee, initReveals, initGrid, initGallery, initPaging
+    ].forEach(function (init) {
+      try {
+        init();
+      } catch (e) {
+        if (window.console) console.error('Paper Portfolio init failed:', e);
+      }
+    });
+
+    var app = document.getElementById('app');
+    if (app) app.classList.add('appear');
     document.documentElement.classList.add('is-ready');
   }
 
