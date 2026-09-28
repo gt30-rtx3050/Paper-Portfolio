@@ -380,3 +380,6 @@ body { background-repeat: repeat; }
   .m-title { font-size: 7vw; }
   .l-way { width: 82vw; height: 104vw; }
 }
+
+/* Experience is longer than the previous navigation label. */
+.menu-title.work { font-size: 12vw; }

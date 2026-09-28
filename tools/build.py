@@ -27,6 +27,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import artwork as art  # noqa: E402
 from content import (  # noqa: E402
     AWARDS,
+    EXPERIENCES,
     BRAND,
     LEGAL,
     PROJECTS,
@@ -129,7 +130,7 @@ def nav(active: str) -> str:
         cur = " w--current" if key == active else ""
         aria = ' aria-current="page"' if key == active else ""
         return (
-            f'<a draggable="false" aria-label="{e(BRAND["name"])} – {key.title()}" '
+            f'<a draggable="false" aria-label="{e(BRAND["name"])} – {"Experience" if key == "work" else key.title()}" '
             f'data-color="{BEIGE}" rel="noopener" href="{href}"{aria} '
             f'class="menu-link {key} w-inline-block{cur}">'
             f'<h1 class="menu-title {key}">{label_html}</h1>'
@@ -169,7 +170,7 @@ def nav(active: str) -> str:
 <div class="menu" style="display:none">
 <div class="menu-w">
 {menu_link("index", "Index", "/")}
-{menu_link("work", '<span class="span">W</span><span class="f-span space">o</span>rk', "/work/")}
+{menu_link("work", 'Experience', "/work/")}
 {menu_link("about", 'Ab<span class="f-span space">o</span>ut', "/about/")}
 <div class="f-block li w-clearfix">{links}</div>
 </div>
@@ -295,75 +296,59 @@ def write(path: str, content: str) -> None:
 # --- pages -----------------------------------------------------------------
 
 def page_work() -> str:
-    """The work index: a draggable field of project cards."""
+    """Full-height horizontal experience accordion, based on Sample.mp4."""
     cards = []
-    for i, p in enumerate(PROJECTS):
-        a = ASSETS[p["slug"]]
-        new = (
-            '<div class="new-t-2">New</div>' if p.get("isNew") else ""
-        )
-        tags = "".join(
-            f'<div class="tag tag-w">{e(t)}</div>' for t in p["tags"]
-        )
-        cards.append(
-            f"""<a data-reveal href="{slug_path(p["slug"])}" class="article-item w-inline-block"
-   style="--i:{i}">
-<div class="article-header">
-<div class="pub-numb__wrap"><span class="numb">{i + 1:02d}</span></div>
-<div class="article-block" style="margin-left:2vw"><span class="pub-source">{e(p["year"])}</span></div>
+    for i, job in enumerate(EXPERIENCES):
+        slug = job["slug"]
+        opened = i == 0
+        cards.append(f'''<article class="experience-card{' is-active' if opened else ''}">
+<button class="experience-spine" id="tab-{slug}" aria-expanded="{str(opened).lower()}" aria-controls="panel-{slug}">
+<span class="spine-name">{e(job["name"])}</span>
+<span class="spine-year">{e(job["years"])}</span>
+</button>
+<section class="experience-panel" id="panel-{slug}" aria-labelledby="tab-{slug}" {'inert' if not opened else ''}>
+<div class="panel-inner">
+<div class="panel-copy">
+<div class="panel-tags"><span>{e(job["label"])}</span></div>
+<h2>{e(job["name"])}</h2>
+<p>{e(job["name"])}<br>{e(job["years"])}{'<br>' + e(job["label"]) if job["label"] != 'Experience' else ''}</p>
 </div>
-<div class="article-grid">
-<div class="article-image-wrap" style="overflow:hidden">
-<img src="{a["thumb"]}" alt="{e(p["desc"])}" loading="lazy"
-     style="width:100%;height:auto;display:block" data-drift="4">
+<img class="panel-image" src="/portfolio/img/experience/{slug}.jpg" alt="{e(job["image_alt"])}" draggable="false" {'fetchpriority="high"' if opened else 'loading="lazy"'}>
 </div>
-<div class="article-block">
-<div class="article-title__wrap">
-<h3 class="article-title">{e(p["title"])}</h3>
-{new}
-</div>
-<div class="pub-link">{tags}</div>
-</div>
-<div class="article-block">
-<div class="item-desc">{e(p["desc"])}</div>
-</div>
-</div>
-</a>"""
-        )
-
-    main = f"""<div class="main work-case">
-<header class="aw-1">
-<div class="aw1-outer">
-<h2 class="aw1-head" data-words>Selected work, {BRAND["since"]}&ndash;present</h2>
-<div class="aw1-b">
-<div class="aw1-col le">
-<p class="text">Eight projects that show how the studio works: one strong idea, carried all the
-way through direction, design and build. Drag the field sideways, or open any project below.</p>
-</div>
-<div class="aw1-col ri">
-<a href="/about/" class="aw1-link w-inline-block">
-<div class="aw1-thumb"><img src="{ASSETS[PROJECTS[0]["slug"]]["mark"]}" alt="" loading="lazy"></div>
-<div class="aw1-info">
-<div class="aw1-name">Awards &amp; Press</div>
-<div class="aw1-desc"><span class="text">Recognition, interviews and publications.</span></div>
-<div class="aw1-prices"><span class="text bold">{len(AWARDS)} awards</span></div>
-</div>
-</a>
-</div>
-</div>
-</div>
-</header>
-<section class="publications" style="padding-left:2vw;padding-right:2vw">
-{"".join(cards)}
 </section>
-</div>"""
-    return shell(
-        title="Work",
-        desc=f"Selected work by {BRAND['name']} — art direction, interface design and creative development.",
-        body_class="work",
-        active="work",
-        main=main,
-    )
+</article>''')
+    return f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Experience — Paper Portfolio</title>
+<meta name="description" content="Six chapters of professional experience, 2018–2026.">
+<link rel="stylesheet" href="/portfolio/experience.css">
+<script defer src="/portfolio/experience.js"></script>
+</head>
+<body class="experience-page">
+<a class="skip-link" href="#experience">Skip to experience</a>
+<header class="experience-rail">
+<button class="rail-menu" aria-label="Open navigation" aria-expanded="false" aria-controls="experience-menu"><span></span><span></span></button>
+<a class="rail-brand" href="/">The Paper Portfolio</a>
+<h1 class="rail-label">Experience</h1>
+</header>
+<nav id="experience-menu" class="experience-menu" aria-label="Main navigation" inert hidden>
+<a href="/">Index</a><a href="/work/" aria-current="page">Experience</a><a href="/about/">About</a>
+<span class="menu-caption">The Paper Portfolio · 2018–2026</span>
+</nav>
+<main id="experience" class="experience-viewport" tabindex="0" aria-label="Experience. Scroll horizontally or use arrow keys to explore.">
+<div class="experience-track">{''.join(cards)}</div>
+</main>
+<div class="experience-controls" aria-label="Browse experience">
+<button type="button" data-step="-1" aria-label="Previous experience">←</button>
+<span class="experience-count" aria-live="polite">01 / 06</span>
+<button type="button" data-step="1" aria-label="Next experience">→</button>
+</div>
+</body>
+</html>
+'''
 
 
 def page_about() -> str:

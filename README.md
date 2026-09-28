@@ -9,7 +9,7 @@ menu, an inertial horizontal work slider and oversized marquee footer.
 | Route | File | What it is |
 | --- | --- | --- |
 | `/` | `index.html` | Home |
-| `/work/` | `work/index.html` | Project index |
+| `/work/` | `work/index.html` | Experience — six-panel horizontal accordion |
 | `/about/` | `about/index.html` | Awards, press, capabilities, testimonials |
 | `/legal/` | `legal/index.html` | Privacy, terms, credits |
 | `/work/<slug>/` | `work/<slug>/index.html` | Eight case studies |
@@ -80,3 +80,37 @@ original content too.
 
 `BRAND` at the top of `tools/content.py` is the single place to change the
 studio name, location, email and social links.
+
+## Experience page
+
+The existing `/work/` URL is retained so old links continue to work; its title
+and navigation labels now read **Experience**. `EXPERIENCES` in
+`tools/content.py` contains the six company names, dates and supplied labels.
+No job titles or responsibilities have been inferred. Rebuild with
+`python3 tools/build.py`; the reference is the repository's `Sample.mp4`.
+
+`portfolio/experience.css` and `portfolio/experience.js` are isolated from the
+legacy page bundles. The layout has a fixed vertical navigation rail and
+full-height expanding columns. Hover or click a spine, scroll/drag sideways,
+swipe on touch, or use the previous/next buttons. Arrow keys and Home/End work
+inside the experience region. The menu supports Escape and focus containment;
+reduced-motion preferences disable panel and scroll animation.
+
+The original Canopee/Domaine font URLs are retained, with locally bundled
+Bodoni Moda and Instrument Serif fallbacks (OFL licenses in `portfolio/fonts/`)
+for unavailable external fonts. Imagery below is **illustrative**, not evidence
+of client work or company offices. Selected images are served locally:
+
+- SB Web Technology: [coding workspace](https://www.vecteezy.com/free-photos/laptop-coding)
+- KPO & Company: [office interior, Pexels](https://www.pexels.com/photo/5483051/)
+- Daraz Nepal: [shopping bags, Unsplash](https://unsplash.com/photos/woman-carrying-shopping-bags-in-front-of-building-_rxFfpOJKcI)
+- Simple Flying: [airplane view, Unsplash](https://unsplash.com/photos/airplane-view-of-fluffy-clouds-and-sky-nqCP9lYAdGs)
+- Himalayan Dream Treks: [mountain landscape](https://www.outlooktraveller.com/destinations/international/nepal-is-letting-you-climb-these-himalayan-peaks-for-freehere-are-the-best-ones)
+- AFC Urgent Care: [stethoscope and laptop, Pexels](https://pexels.com/photo/computer-desk-laptop-stethoscope-48604)
+
+Replace these with approved company/project imagery when available. The original
+content/imagery statement above describes the older generated project pages,
+not these new illustrative photographs.
+
+Run the dependency-free structural regression checks with
+`python3 -m unittest discover -s tools -p 'test_*.py'`.

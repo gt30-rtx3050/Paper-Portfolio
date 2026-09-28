@@ -343,3 +343,13 @@ LEGAL = [
         ],
     ),
 ]
+
+# Experience entries: only user-supplied employment details, no inferred roles.
+EXPERIENCES = [
+    {"slug": "sb-web", "name": "SB Web Technology", "years": "2018–2020", "label": "Experience", "image_alt": "Illustrative coding workspace with a laptop"},
+    {"slug": "kpo", "name": "KPO & Company", "years": "2020–2022", "label": "Experience", "image_alt": "Illustrative modern office interior"},
+    {"slug": "daraz", "name": "Daraz Nepal", "years": "2023–2024", "label": "Alibaba Group", "image_alt": "Illustrative shopping scene"},
+    {"slug": "simple-flying", "name": "Simple Flying", "years": "2022–2025", "label": "Remote", "image_alt": "Illustrative view of clouds from an airplane"},
+    {"slug": "himalayan", "name": "Himalayan Dream Treks", "years": "2023–2024", "label": "Remote", "image_alt": "Illustrative Himalayan mountain landscape"},
+    {"slug": "afc", "name": "AFC Urgent Care", "years": "2024–2026", "label": "Remote", "image_alt": "Illustrative stethoscope and laptop on a desk"},
+]
