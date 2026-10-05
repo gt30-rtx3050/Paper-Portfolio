@@ -28,19 +28,15 @@ html{-ms-text-size-adjust:100%;-webkit-text-size-adjust:100%;font-family:sans-se
   font-style: normal;
   font-display: swap;
 }
+/* Canopee — the display face, bundled locally (converted from the
+   repository's "Canopee Regular.otf") so the headings render even when
+   the original Webflow CDN asset is unreachable. The CDN copy stays in
+   the source list as a fallback. */
 @font-face {
   font-family: 'Canopee';
-  src: url('https://uploads-ssl.webflow.com/5f2429f172d117fcee10e819/616fd1dd00cf6c70f978fc69_Canopee.woff2') format('woff2');
+  src: url('fonts/canopee-regular.woff2') format('woff2'),
+       url('https://uploads-ssl.webflow.com/5f2429f172d117fcee10e819/616fd1dd00cf6c70f978fc69_Canopee.woff2') format('woff2');
   font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-/* Mango Grotesque Semi Bold — supplied locally, used for the project
-   headings in the home hero slider. */
-@font-face {
-  font-family: 'Mango Grotesque';
-  src: url('fonts/mango-grotesque-semibold.woff2') format('woff2');
-  font-weight: 600;
   font-style: normal;
   font-display: swap;
 }
