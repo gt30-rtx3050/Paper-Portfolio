@@ -3,7 +3,7 @@
 
 <script defer="" src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
 
-<link rel="preload" href="/portfolio/fonts/mango-grotesque-semibold.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="/portfolio/styles.css"><style>/* Fit the renamed navigation label without altering the home layout. */
+<link rel="preload" href="/portfolio/fonts/canopee-regular.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="/portfolio/styles.css"><style>/* Fit the renamed navigation label without altering the home layout. */
 .menu-title.m2{font-size:12vw}.head-title.experience-label{font-size:4vw}.cta-text.work{font-size:4.6vw}
 /* Hero name: sized so "KISHOR" spans the full width in Canopee. */
 .head.h{font-size:38.5vw;white-space:nowrap}@media screen and (max-width:479px){.head.h{font-size:37vw}}
@@ -25,19 +25,23 @@
         align-items: center;
     }
 
+    /* Hero slider project headings: Canopee at a standard heading size.
+       The names wrap instead of being clipped when they outgrow the
+       card, and Canopee is bundled locally (see portfolio/styles.css)
+       so the headings never fall back to a generic face. */
     .index .item-tw .project-name {
         display: flex;
         align-items: center;
         height: auto;
         max-width: 100%;
         color: #1D1D1B;
-        font-family: Canopee, sans-serif;
+        font-family: Canopee, 'Times New Roman', serif;
         font-size: clamp(26px, 3.1vw, 52px);
         font-weight: 400;
         letter-spacing: -0.02em;
         line-height: 1;
         text-transform: uppercase;
-        white-space: nowrap;
+        white-space: normal;
     }
 
     .index .item-tw .new-w-2 {
